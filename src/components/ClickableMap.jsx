@@ -18,6 +18,7 @@ const ClickableMap = () => {
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
         );
+        console.log("Location Info:", response.data);
         setLocationInfo(response.data.display_name || "No information available");
       } catch (error) {
         console.error("Error fetching location info:", error);

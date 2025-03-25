@@ -4,11 +4,53 @@ import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import "leaflet-geosearch/dist/geosearch.css";
 import axios from "axios";
 import L from "leaflet";
+import PopupPanel from "./PopupPanel";
+
+const UNSPLASH_ACCESS_KEY = "sac-RkjymWf8lVvO5GTahUNI7O8OmyNJV6vCnBEnF7I";
 
 const SearchComponent = ({ darkMode }) => {
   const map = useMap();
   const [polygonLayer, setPolygonLayer] = useState(null);
   const [searchControl, setSearchControl] = useState(null); // Store search control instance
+  const [placeData, setPlaceData] = useState(null);
+
+
+  const fetchImagesFromUnsplash = async (query) => {
+    try {
+      const response = await axios.get("https://api.unsplash.com/search/photos", {
+        params: {
+          query,
+          client_id: UNSPLASH_ACCESS_KEY,  // ✅ API Key
+          per_page: 5,  // ✅ 5 images fetch karne ke liye
+        },
+      });
+  
+      return response.data.results.map((photo) => photo.urls.small); // ✅ Array of images return karega
+    } catch (error) {
+      console.error("Error fetching images:", error);
+      return [];
+    }
+  };
+
+    // ✅ Fetch detailed address using Reverse Geocoding API
+    const fetchReverseGeocodeData = async (lat, lng) => {
+      try {
+        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse`, {
+          params: {
+            lat,
+            lon: lng,
+            format: "json",
+          },
+        });
+        console.log("Reverse Geocode Data:", response.data);
+  
+        return response.data || {}; // ✅ Return address object
+      } catch (error) {
+        console.error("Error fetching reverse geocode data:", error);
+        return {};
+      }
+    };
+  
 
   useEffect(() => {
     const provider = new OpenStreetMapProvider();
@@ -60,10 +102,14 @@ const SearchComponent = ({ darkMode }) => {
       const { x: lng, y: lat } = e.location;
 
       try {
+        const [imageUrls, reverseGeocodeData] = await Promise.all([
+          fetchImagesFromUnsplash(e.location.label),
+          fetchReverseGeocodeData(lat, lng),
+        ]);
+
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/search?format=json&q=${e.location.label}&polygon_geojson=1`
         );
-        console.log("Boundary response:", response.data);
 
         if (response.data.length > 0) {
           const geojsonData = response.data[0].geojson;
@@ -84,6 +130,15 @@ const SearchComponent = ({ darkMode }) => {
 
           setPolygonLayer(newPolygon);
           map.fitBounds(newPolygon.getBounds());
+
+          setPlaceData({
+            name: e.location.label,
+            images: imageUrls,
+            lat,
+            lng,
+            data: reverseGeocodeData, // ✅ Reverse Geocoding Data
+          });
+          
         }
       } catch (error) {
         console.error("Error fetching boundary:", error);
@@ -109,7 +164,14 @@ const SearchComponent = ({ darkMode }) => {
     }
   }, [darkMode]);
 
-  return null;
+
+
+  return (
+    <>
+      {/* 🔥 PopupPanel ko return kiya bina baki logic affect kiye */}
+      <PopupPanel placeData={placeData} setPlaceData={setPlaceData}  darkMode={darkMode}  />
+    </>
+  );
 };
 
 export default SearchComponent;
