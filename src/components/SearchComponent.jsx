@@ -13,6 +13,7 @@ const SearchComponent = ({ darkMode }) => {
   const [polygonLayer, setPolygonLayer] = useState(null);
   const [searchControl, setSearchControl] = useState(null); // Store search control instance
   const [placeData, setPlaceData] = useState(null);
+  
 
 
   const fetchImagesFromUnsplash = async (query) => {
@@ -42,7 +43,7 @@ const SearchComponent = ({ darkMode }) => {
             format: "json",
           },
         });
-        console.log("Reverse Geocode Data:", response.data);
+      
   
         return response.data || {}; // ✅ Return address object
       } catch (error) {
@@ -76,7 +77,7 @@ const SearchComponent = ({ darkMode }) => {
     setTimeout(() => {
       const searchInput = document.querySelector(".leaflet-control-geosearch form input");
       if (searchInput) {
-        searchInput.style.backgroundColor = darkMode ? "#333" : "white"; // Dark mode background
+        searchInput.style.backgroundColor = darkMode ? "oklch(0.278 0.033 256.848)" : "white"; // Dark mode background
         searchInput.style.color = darkMode ? "#fff" : "#000"; // Dark mode text color
         searchInput.style.border = darkMode ? "1px solid #666" : "1px solid #ccc"; // Border
         searchInput.style.outline = "none"; // Removes the default focus outline
@@ -112,6 +113,7 @@ const SearchComponent = ({ darkMode }) => {
         );
 
         if (response.data.length > 0) {
+          
           const geojsonData = response.data[0].geojson;
 
           if (polygonLayer) {

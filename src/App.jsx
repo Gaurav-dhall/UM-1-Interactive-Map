@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import { Marker, Popup } from 'react-leaflet';
@@ -9,6 +9,7 @@ const App = () => {
   const [isTracking, setIsTracking] = useState(false);
   const [position, setPosition] = useState(null);
   const [darkMode, setDarkMode] = useState(false); // ✅ Theme state
+  const popupRef = useRef(null);
 
   // ✅ Load saved theme from localStorage
   useEffect(() => {
@@ -60,12 +61,30 @@ const App = () => {
           map.flyTo(e.latlng, 13);
           setIsTracking(false);
         });
+
+        
       }
     }, [isTracking, map]);
 
+     
+
+    const applyPopupTheme = () => {
+      if (popupRef.current) {
+        const popupElement = popupRef.current._contentNode.parentElement;
+        if (darkMode) {
+          popupElement.style.backgroundColor = "oklch(0.21 0.034 264.665)";
+          popupElement.style.color = "#ffffff"; // White text in dark mode
+        } else {
+          popupElement.style.backgroundColor = "#ffffff";
+          popupElement.style.color = "#000000"; // Black text in light mode
+        }
+      }
+    };
+  
+
     return position ? (
-      <Marker position={position}>
-        <Popup>You are here</Popup>
+      <Marker  position={position}>
+        <Popup  ref={popupRef}  onOpen={applyPopupTheme}>You are here</Popup>
       </Marker>
     ) : null;
   }
@@ -73,35 +92,37 @@ const App = () => {
   return (
     <div className={`relative ${darkMode ? "bg-gray-900 text-black" : "bg-white text-black"} h-screen w-full`}  >
       { /* ✅ Theme Toggle Button */}
+      <div className='flex justify-between items-center'>
         <button
           onClick={toggleTheme}
-          className={`absolute top-4 right-8 z-1000 font-semibold px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
+          className={`absolute top-4  w-10 text-sm h-8 flex items-center justify-center right-7  z-1000 font-semibold  rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
             darkMode
           ? "bg-gray-800 text-white border-gray-600 hover:bg-gray-700"
           : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
           }`}
         >
-          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+          {darkMode ? "☀️" : "🌙"}
         </button>
 
         {/* ✅ Find My Location Button */}
         <button
           onClick={handleLocationClick}
-          className={`absolute top-4 left-8 z-1000 font-semibold px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
+          className={`absolute bottom-4 right-7 w-10 h-10 text- z-1000 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
             darkMode
           ? "bg-gray-800 text-white border-gray-600 hover:bg-gray-700"
           : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
           }
           `}
         >
-          📍 Find My Location
+          📍
         </button>
+        </div>
 
         {/* ✅ Map */}
       <MapContainer className="h-screen" center={[20.5937, 78.9629]} zoom={5} scrollWheelZoom={true}>
         <TileLayer url={tileLayerUrl} />
         <SearchComponent darkMode={darkMode}/>
-        <ClickableMap />
+        <ClickableMap darkMode={darkMode} />
 
         {locations.map((place) => (
           <Marker key={place.id} position={place.coords}>
