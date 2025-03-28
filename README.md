@@ -31,19 +31,19 @@ A simple and interactive web application that helps users search locations, view
 
 
 3.Start the development server:
-    ```sh
+    ```
     npm run dev
     ```
 
 ## 🔥 Deployment on Vercel
 
 Install Vercel CLI:
-    ```sh
+    ```
     npm install -g vercel
     ```
 
 Deploy the project:
-     ```sh
+     ```
     vercel
     ```
 
