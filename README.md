@@ -1,12 +1,61 @@
-# React + Vite
+# 🌍 LocaX : Location Finder Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and interactive web application that helps users search locations, view them on a map, and display additional details in a side panel.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- 📍 Search locations and display them on the map
+- 🗺️ Click on the map to fetch location details
+- 🏠 Side panel to display information
+- 🎯 Dynamic UI updates based on user interactions
+- 🌐 Fully responsive and hosted on Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technologies Used
+- ⚛️ React.js
+- 🌍 Leaflet.js (for interactive maps)
+- 🎨 Tailwind CSS (for styling)
+- ⚡ Vite (for fast development)
+- 🚀 Vercel (for deployment)
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/location-finder.git
+   cd location-finder
+
+2.Install dependencies:
+    ```sh
+    npm install
+
+
+3.Start the development server:
+    ```sh
+    npm run dev
+
+## 🔥 Deployment on Vercel
+
+Install Vercel CLI:
+    ```sh
+    npm install -g vercel
+
+Deploy the project:
+     ```sh
+    vercel
+
+## 🛠️ How to Use
+Enter a location in the search bar.
+Click on any suggested location to display details.
+Click anywhere on the map to fetch location data.
+Close the side panel to interact with the map again.
+
+##🤝 Contributing
+Feel free to fork this repository, create a new branch, and submit a pull request.
+
+##📄 License
+This project is licensed under the MIT License.
+
+##📞 Contact
+✉️ Email: gauravdhall35@gmail.com
+🔗 GitHub: Gaurav-dhall
+🌍 Live Site: [visit here](http://locax.vercel.app)
+
