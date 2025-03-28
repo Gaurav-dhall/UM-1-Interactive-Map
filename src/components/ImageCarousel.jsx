@@ -10,7 +10,7 @@ const ImageCarousel = ({ images }) => {
       autoplay={{ delay: 3000 }} // 3 sec interval
       pagination={{ clickable: true }}
       loop={true}
-      className="w-full h-40 rounded-lg shadow-lg"
+      className="w-80 md:w-[80%] h-40 md:h-70 rounded-lg shadow-lg"
     >
       {images.map((img, index) => (
         <SwiperSlide key={index} className="aspect-video">
