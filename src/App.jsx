@@ -11,6 +11,8 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false); // ✅ Theme state
   const popupRef = useRef(null);
 
+
+
   // ✅ Load saved theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -95,7 +97,7 @@ const App = () => {
       <div className='flex justify-between items-center'>
         <button
           onClick={toggleTheme}
-          className={`absolute top-4  w-10 text-sm h-8 flex items-center justify-center right-7  z-1000 font-semibold  rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
+          className={`absolute top-4  w-10 text-sm h-10 flex items-center justify-center right-7  z-1000 font-semibold  rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
             darkMode
           ? "bg-gray-800 text-white border-gray-600 hover:bg-gray-700"
           : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
@@ -107,7 +109,7 @@ const App = () => {
         {/* ✅ Find My Location Button */}
         <button
           onClick={handleLocationClick}
-          className={`absolute bottom-4 right-7 w-10 h-10 text- z-1000 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
+          className={`absolute bottom-20 right-7 w-10 h-10 text- z-1000 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
             darkMode
           ? "bg-gray-800 text-white border-gray-600 hover:bg-gray-700"
           : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
