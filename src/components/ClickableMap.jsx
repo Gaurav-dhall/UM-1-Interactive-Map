@@ -93,6 +93,7 @@ const ClickableMap = ({ darkMode }) => {
   useEffect(() => {
     if (placeData) {
       setIsPanelOpen(true);
+     // ✅ Send data to parent component
       console.log("✅ Side Panel Opened with data:", placeData);
     }
   }, [placeData]);
@@ -105,21 +106,23 @@ const ClickableMap = ({ darkMode }) => {
             <div>
               <b>📍 Location Info:</b> <br /> {locationInfo}
               <br />
-              {/* ✅ Know More Button */}
-              <button
-                onClick={handleKnowMoreClick}
-                className="bg-blue-500 text-white px-3 py-1 mt-2 rounded hover:bg-blue-600 transition"
-              >
-                Know More
-              </button>
-            </div>
-          </Popup>
-        </Marker>
-      )}
+              
+                      {locationInfo !== "No information available" && (
+                      <button
+                        onClick={handleKnowMoreClick}
+                        className="bg-blue-500 text-white px-3 py-1 mt-2 rounded hover:bg-blue-600 transition"
+                      >
+                        Know More
+                      </button>
+                      )}
+                    </div>
+                    </Popup>
+                  </Marker>
+                  )}
 
-      {/* ✅ Show PopupPanel when isPanelOpen is true */}
+                  {/* ✅ Show PopupPanel when isPanelOpen is true */}
       {isPanelOpen && (
-        <PopupPanel placeData={placeData} setPlaceData={setPlaceData} darkMode={darkMode} />
+        <PopupPanel  placeData={placeData} setPlaceData={setPlaceData} darkMode={darkMode} />
       )}
     </>
   );

@@ -140,6 +140,7 @@ const SearchComponent = ({ darkMode }) => {
             lng,
             data: reverseGeocodeData, // ✅ Reverse Geocoding Data
           });
+        
           
         }
       } catch (error) {
@@ -156,6 +157,8 @@ const SearchComponent = ({ darkMode }) => {
       }
     };
   }, [map]);
+
+  
 
   useEffect(() => {
     if (polygonLayer) {

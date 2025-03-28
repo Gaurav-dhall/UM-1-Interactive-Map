@@ -3,11 +3,17 @@ import ImageCarousel from "./ImageCarousel";
 const PopupPanel = ({ placeData, setPlaceData,darkMode }) => {
   
 
-  if (!placeData) return null;
+  if (!placeData) {
+    // sendDataToParent(false)
+    return null;
+  }
   
 
     return (
-      <div   
+      <>  
+      
+      
+          <div   
         className={`fixed top-[40%] left-0 h-[60%] w-full p-6 transition-transform duration-300 ease-in-out shadow-lg z-10000 border-r
           ${darkMode ? "bg-gray-900 text-white border-gray-700" : "bg-white text-gray-800 border-gray-300"}
          
@@ -21,7 +27,10 @@ const PopupPanel = ({ placeData, setPlaceData,darkMode }) => {
       >
         {/* Close Button */}
         <button
-          onClick={() => setPlaceData(null)}
+          onClick={() => {
+            setPlaceData(null);   // Panel close kar raha hai
+             // ✅ Parent ko update kar raha hai
+          }}
           className="absolute top-4 right-4 size-5 flex items-center justify-center bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition"
         >
           ✖
@@ -74,6 +83,7 @@ const PopupPanel = ({ placeData, setPlaceData,darkMode }) => {
           </a>
         </div>
       </div>
+      </>
     );
   };
   

@@ -9,7 +9,13 @@ const App = () => {
   const [isTracking, setIsTracking] = useState(false);
   const [position, setPosition] = useState(null);
   const [darkMode, setDarkMode] = useState(false); // ✅ Theme state
+  const [pannelState, setPannelState] = useState(false); // ✅ Panel visibility state 
   const popupRef = useRef(null);
+
+
+
+
+
 
 
 
@@ -109,7 +115,7 @@ const App = () => {
         {/* ✅ Find My Location Button */}
         <button
           onClick={handleLocationClick}
-          className={`absolute bottom-20 right-7 w-10 h-10 text- z-1000 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out border ${
+          className={`absolute bottom-20 right-7 w-10 h-10 text- z-1000 font-semibold rounded-full shadow-md transition-all duration-300 ease-in-out border ${
             darkMode
           ? "bg-gray-800 text-white border-gray-600 hover:bg-gray-700"
           : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
@@ -121,10 +127,10 @@ const App = () => {
         </div>
 
         {/* ✅ Map */}
-      <MapContainer className="h-screen" center={[20.5937, 78.9629]} zoom={5} scrollWheelZoom={true}>
+      <MapContainer className=" h-screen" center={[20.5937, 78.9629]} zoom={5} scrollWheelZoom={true}>
         <TileLayer url={tileLayerUrl} />
-        <SearchComponent darkMode={darkMode}/>
-        <ClickableMap darkMode={darkMode} />
+        <SearchComponent darkMode={darkMode} />
+        <ClickableMap darkMode={darkMode}  />
 
         {locations.map((place) => (
           <Marker key={place.id} position={place.coords}>
