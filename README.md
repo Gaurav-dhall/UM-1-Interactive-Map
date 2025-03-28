@@ -22,25 +22,30 @@ A simple and interactive web application that helps users search locations, view
    ```sh
    git clone https://github.com/yourusername/location-finder.git
    cd location-finder
+   ```
 
 2.Install dependencies:
-    ```sh
+   ```sh
     npm install
+   ```
 
 
 3.Start the development server:
     ```sh
     npm run dev
+    ```
 
 ## 🔥 Deployment on Vercel
 
 Install Vercel CLI:
     ```sh
     npm install -g vercel
+    ```
 
 Deploy the project:
      ```sh
     vercel
+    ```
 
 ## 🛠️ How to Use
 Enter a location in the search bar.
